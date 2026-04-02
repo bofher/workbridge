@@ -1,5 +1,6 @@
 package com.ccp.WorkBridge.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,15 +31,18 @@ public class User extends BaseEntity {
     private Double priorityCoefficient;
     private ZoneId timeZone;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "uploadedBy", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FileEntity> uploadedFiles = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<UserSkill> skills = new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "recipient", fetch = FetchType.LAZY)
     private List<OrderReview> receivedReviews = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
     private List<OrderReview> givenReviews = new ArrayList<>();
 }
