@@ -3,7 +3,7 @@ package com.ccp.WorkBridge.controllers;
 import com.ccp.WorkBridge.dto.AuthResponse;
 import com.ccp.WorkBridge.dto.LoginRequest;
 import com.ccp.WorkBridge.dto.RegisterRequest;
-import com.ccp.WorkBridge.services.AuthService;
+import com.ccp.WorkBridge.services.auth.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

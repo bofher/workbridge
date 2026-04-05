@@ -1,6 +1,5 @@
-package com.ccp.WorkBridge.services;
+package com.ccp.WorkBridge.services.file;
 
-import com.ccp.WorkBridge.dto.FileCreateRequest;
 import com.ccp.WorkBridge.dto.PresignedUploadResponse;
 import com.ccp.WorkBridge.enums.FileType;
 import com.ccp.WorkBridge.exceptions.DataNotFoundException;
@@ -8,11 +7,8 @@ import com.ccp.WorkBridge.models.FileEntity;
 import com.ccp.WorkBridge.models.User;
 import com.ccp.WorkBridge.repos.FileRepository;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.exception.DataException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.HeadObjectRequest;
 
 import java.time.Instant;
 

@@ -3,10 +3,9 @@ package com.ccp.WorkBridge.models;
 import com.ccp.WorkBridge.enums.OrderStatus;
 import com.ccp.WorkBridge.enums.OrderType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -17,6 +16,8 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @Table(name = "orders")
 public class Order extends BaseEntity {
     @ManyToOne
@@ -24,11 +25,13 @@ public class Order extends BaseEntity {
     private User customer;
 
     @ManyToOne
-    @JoinColumn(name = "freelancer_id")
+    @JoinColumn(name = "freelancer_id", nullable = true)
     private User freelancer;
 
     @Enumerated(EnumType.STRING)
-    private OrderStatus orderStatus;
+    private OrderStatus status;
+
+    private BigDecimal price;
 
     @Enumerated(EnumType.STRING)
     private OrderType orderType;

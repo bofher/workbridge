@@ -1,17 +1,19 @@
 package com.ccp.WorkBridge.models;
 
 import com.ccp.WorkBridge.enums.PaymentProviderType;
+import com.ccp.WorkBridge.enums.PaymentStatus;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 
 @Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @Table(name = "payments")
 public class Payment extends BaseEntity {
     @Column(name = "external_payment_id", unique = true)
@@ -26,7 +28,7 @@ public class Payment extends BaseEntity {
     private PaymentStatus status;
 
     @Column(nullable = false)
-    private Double amount;
+    private BigDecimal amount;
 
     @Column(nullable = false)
     private String currency;
@@ -45,12 +47,5 @@ public class Payment extends BaseEntity {
 
     private Instant paidAt;
     private String failureReason;
-    
-    public enum PaymentStatus {
-        CREATED,
-        REQUIRES_PAYMENT,
-        SUCCEEDED,
-        FAILED,
-        CANCELED
-    }
+
 }

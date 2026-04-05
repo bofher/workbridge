@@ -1,4 +1,4 @@
-package com.ccp.WorkBridge.services;
+package com.ccp.WorkBridge.services.auth;
 
 import com.ccp.WorkBridge.dto.AuthResponse;
 import com.ccp.WorkBridge.dto.CustomUserDetails;

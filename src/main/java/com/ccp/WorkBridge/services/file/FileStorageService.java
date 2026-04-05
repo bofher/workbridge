@@ -1,4 +1,4 @@
-package com.ccp.WorkBridge.services;
+package com.ccp.WorkBridge.services.file;
 
 import com.ccp.WorkBridge.dto.FileDownloadResponse;
 import com.ccp.WorkBridge.dto.PresignedUploadResponse;
@@ -15,7 +15,6 @@ import software.amazon.awssdk.services.s3.model.HeadObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest;
-import software.amazon.awssdk.services.s3.presigner.model.PresignedGetObjectRequest;
 import software.amazon.awssdk.services.s3.presigner.model.PresignedPutObjectRequest;
 import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignRequest;
 

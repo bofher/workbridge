@@ -1,6 +1,6 @@
 package com.ccp.WorkBridge.config;
 
-import com.ccp.WorkBridge.services.JwtService;
+import com.ccp.WorkBridge.services.auth.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
