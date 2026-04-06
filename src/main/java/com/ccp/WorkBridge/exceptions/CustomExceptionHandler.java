@@ -25,7 +25,7 @@ public class CustomExceptionHandler {
     public ProblemDetail handleBadCredentials(BadCredentialsException ex) {
         ProblemDetail problem = ProblemDetail.forStatus(HttpStatus.UNAUTHORIZED);
         problem.setTitle("Invalid credentials");
-        problem.setDetail(ex. getMessage());
+        problem.setDetail(ex.getMessage());
         return problem;
     }
 
@@ -38,6 +38,15 @@ public class CustomExceptionHandler {
         return problem;
     }
 
+    @ExceptionHandler(PaymentFailedException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ProblemDetail handlePaymentFailed(PaymentFailedException ex) {
+        ProblemDetail problem = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
+        problem.setTitle("Payment Failed");
+        problem.setDetail(ex.getMessage());
+        return problem;
+    }
+
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ProblemDetail handleGeneral(Exception ex) {
@@ -46,4 +55,5 @@ public class CustomExceptionHandler {
         problem.setDetail(ex.getMessage());
         return problem;
     }
+
 }

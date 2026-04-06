@@ -3,7 +3,6 @@ package com.ccp.WorkBridge.controllers;
 import com.ccp.WorkBridge.dto.CreateOrderRequest;
 import com.ccp.WorkBridge.dto.CustomUserDetails;
 import com.ccp.WorkBridge.dto.OrderResponse;
-import com.ccp.WorkBridge.models.FileEntity;
 import com.ccp.WorkBridge.services.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,13 +20,6 @@ public class OrderController {
     public OrderResponse create(@RequestBody CreateOrderRequest createOrderRequest,
                                 @AuthenticationPrincipal CustomUserDetails userDetails) {
         return OrderResponse.toResponse(orderService.createOrder(createOrderRequest, userDetails.user()));
-    }
-
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    @PostMapping("/respond/{id}")
-    public OrderResponse respondToOrder(@PathVariable Long id,
-                                        @AuthenticationPrincipal CustomUserDetails userDetails) {
-        return OrderResponse.toResponse(orderService.respondToOrder(id, userDetails.user()));
     }
 
 }

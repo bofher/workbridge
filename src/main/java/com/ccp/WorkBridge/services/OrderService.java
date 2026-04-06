@@ -4,16 +4,14 @@ import com.ccp.WorkBridge.dto.CreateOrderRequest;
 import com.ccp.WorkBridge.enums.OrderStatus;
 import com.ccp.WorkBridge.enums.OrderType;
 import com.ccp.WorkBridge.exceptions.DataNotFoundException;
-import com.ccp.WorkBridge.models.Order;
-import com.ccp.WorkBridge.models.OrderSkill;
-import com.ccp.WorkBridge.models.Skill;
-import com.ccp.WorkBridge.models.User;
+import com.ccp.WorkBridge.models.*;
 import com.ccp.WorkBridge.repos.OrderRepository;
+import com.ccp.WorkBridge.repos.PaymentRepository;
 import com.ccp.WorkBridge.repos.SkillRepository;
+import com.ccp.WorkBridge.services.payment.PaymentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -32,7 +30,7 @@ public class OrderService {
         order.setDescription(request.description());
         order.setDeadline(request.deadline());
         order.setOrderType(OrderType.REQUEST);
-
+        //TODO: make skill level in orderSKill
         Set<OrderSkill> skills = request.skillIds().stream()
                 .map(skillId -> {
                     Skill skill = skillRepository.findById(skillId)
@@ -45,18 +43,6 @@ public class OrderService {
                 .collect(Collectors.toSet());
 
         order.getOrderSkills().addAll(skills);
-
-        return orderRepository.save(order);
-    }
-
-    public Order respondToOrder(Long orderId, User freelancer) {
-        Order order = orderRepository.getOrderById(orderId);
-
-        if (order.getFreelancer() != null) {
-            throw new IllegalStateException("Order already taken");
-        }
-        order.setFreelancer(freelancer);
-        order.setStatus(OrderStatus.PENDING_PAYMENT);
 
         return orderRepository.save(order);
     }
