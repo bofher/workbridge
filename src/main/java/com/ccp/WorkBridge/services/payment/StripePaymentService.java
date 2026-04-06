@@ -1,10 +1,7 @@
 package com.ccp.WorkBridge.services.payment;
 
-import com.ccp.WorkBridge.enums.PaymentStatus;
 import com.ccp.WorkBridge.exceptions.PaymentFailedException;
 import com.ccp.WorkBridge.models.Payment;
-
-import com.ccp.WorkBridge.repos.PaymentRepository;
 import com.ccp.WorkBridge.services.interfaces.PaymentProviderService;
 import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;
@@ -17,7 +14,6 @@ import java.math.BigDecimal;
 @Service
 @RequiredArgsConstructor
 public class StripePaymentService implements PaymentProviderService {
-    private final PaymentRepository paymentRepository;
 
     @Override
     public String createPaymentIntent(Payment payment) throws PaymentFailedException {
