@@ -1,7 +1,7 @@
 package com.ccp.WorkBridge.dto;
 
 import com.ccp.WorkBridge.enums.ProposalStatus;
-import com.ccp.WorkBridge.models.Proposal;
+import com.ccp.WorkBridge.proposal.Proposal;
 
 public record ProposalResponse(
         Long id,

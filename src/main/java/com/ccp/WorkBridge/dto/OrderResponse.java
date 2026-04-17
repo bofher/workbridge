@@ -1,7 +1,7 @@
 package com.ccp.WorkBridge.dto;
 
 import com.ccp.WorkBridge.enums.OrderStatus;
-import com.ccp.WorkBridge.models.Order;
+import com.ccp.WorkBridge.order.Order;
 
 import java.math.BigDecimal;
 import java.time.Instant;

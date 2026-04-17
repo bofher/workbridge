@@ -1,6 +1,6 @@
 package com.ccp.WorkBridge.dto;
 
-import com.ccp.WorkBridge.models.User;
+import com.ccp.WorkBridge.user.User;
 import lombok.NonNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
