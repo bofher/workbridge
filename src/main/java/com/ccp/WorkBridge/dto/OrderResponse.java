@@ -16,6 +16,7 @@ public record OrderResponse(
         BigDecimal price,
         String description,
         Instant deadline,
+        //TODO: return skillLevels
         Set<String> skillNames
 ) {
     public static OrderResponse toResponse(Order order) {

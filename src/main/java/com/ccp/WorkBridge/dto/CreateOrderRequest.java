@@ -9,6 +9,11 @@ public record CreateOrderRequest(
         BigDecimal price,
         String description,
         Instant deadline,
-        Set<Long> skillIds
+        Set<OrderSkillRequest> skills
 ) {
+
+    public record OrderSkillRequest(
+            Long skillId,
+            Integer requiredLevel
+    ) {}
 }

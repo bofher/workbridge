@@ -29,7 +29,7 @@ public class ProposalController {
 
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PostMapping("/{id}/accept")
-    public String accept(@PathVariable Long id,
+    public Long accept(@PathVariable Long id,
                          @AuthenticationPrincipal CustomUserDetails userDetails) {
         return proposalService.acceptProposal(id, userDetails.user());
     }

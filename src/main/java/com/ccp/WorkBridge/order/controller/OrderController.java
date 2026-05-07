@@ -22,4 +22,13 @@ public class OrderController {
         return OrderResponse.toResponse(orderService.createOrder(createOrderRequest, userDetails.user()));
     }
 
+    @PostMapping("/{orderId}/confirm-ready")
+    public void confirmOrderReady(@PathVariable Long orderId) {
+        orderService.markOrderAsReady(orderId);
+    }
+
+    @PostMapping("/{orderId}/complete-and-transfer")
+    public void completeOrderAndTransfer(@PathVariable Long orderId) {
+        orderService.completeOrderAndExecutePayment(orderId);
+    }
 }

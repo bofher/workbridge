@@ -5,10 +5,7 @@ import com.ccp.WorkBridge.order.OrderReview;
 import com.ccp.WorkBridge.shared.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -19,6 +16,7 @@ import java.util.Set;
 @Entity
 @Builder
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "users")
@@ -48,4 +46,8 @@ public class User extends BaseEntity {
     @JsonIgnore
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
     private List<OrderReview> givenReviews = new ArrayList<>();
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private StripeConnectAccount stripeConnectAccount;
+
 }

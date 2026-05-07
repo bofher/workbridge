@@ -5,12 +5,12 @@ import com.ccp.WorkBridge.dto.CreateProposalRequest;
 import com.ccp.WorkBridge.enums.OrderStatus;
 import com.ccp.WorkBridge.enums.ProposalStatus;
 import com.ccp.WorkBridge.order.Order;
-import com.ccp.WorkBridge.payment.Payment;
+import com.ccp.WorkBridge.payment.service.OrderPaymentService;
 import com.ccp.WorkBridge.proposal.Proposal;
+import com.ccp.WorkBridge.shared.exceptions.DataNotFoundException;
 import com.ccp.WorkBridge.user.User;
 import com.ccp.WorkBridge.order.repo.OrderRepository;
 import com.ccp.WorkBridge.proposal.repo.ProposalRepository;
-import com.ccp.WorkBridge.payment.service.PaymentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +21,7 @@ import java.util.List;
 public class ProposalService {
     private final ProposalRepository proposalRepository;
     private final OrderRepository orderRepository;
-    private final PaymentService paymentService;
+    private final OrderPaymentService orderPaymentService;
 
     public Proposal createProposal(CreateProposalRequest request, User freelancer) {
         Order order = orderRepository.findById(request.orderId())
@@ -39,9 +39,9 @@ public class ProposalService {
         return proposalRepository.save(proposal);
     }
 
-    public String acceptProposal(Long proposalId, User customer) {
+    public Long acceptProposal(Long proposalId, User customer) {
         Proposal proposal = proposalRepository.findById(proposalId)
-                .orElseThrow(() -> new RuntimeException("Proposal not found"));
+                .orElseThrow(() -> new DataNotFoundException("Proposal not found"));
 
         Order order = proposal.getOrder();
 
@@ -51,8 +51,9 @@ public class ProposalService {
         if (order.getFreelancer() != null) {
             throw new IllegalStateException("Freelancer already selected");
         }
+        
         order.setFreelancer(proposal.getFreelancer());
-        order.setStatus(OrderStatus.PENDING_PAYMENT);
+        order.setStatus(OrderStatus.IN_PROGRESS);
 
         proposal.setStatus(ProposalStatus.ACCEPTED);
 
@@ -64,14 +65,7 @@ public class ProposalService {
         orderRepository.save(order);
         proposalRepository.saveAll(others);
 
-        Payment payment = paymentService.createPayment(
-                order.getCustomer(),
-                order.getPrice(),
-                "usd", //TODO: multicurrency
-                order,
-                null
-        );
-        return paymentService.processPayment(payment);
+        return orderPaymentService.createPayment(customer, order.getPrice(), "USD", order).getId();
     }
 
     public List<Proposal> getByOrder(Long orderId) {

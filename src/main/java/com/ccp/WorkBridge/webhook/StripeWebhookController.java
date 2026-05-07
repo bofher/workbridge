@@ -1,6 +1,5 @@
-package com.ccp.WorkBridge.payment.controller;
+package com.ccp.WorkBridge.webhook;
 
-import com.ccp.WorkBridge.payment.service.StripeWebhookHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
