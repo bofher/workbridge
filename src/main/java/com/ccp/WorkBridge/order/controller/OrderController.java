@@ -31,4 +31,9 @@ public class OrderController {
     public void completeOrderAndTransfer(@PathVariable Long orderId) {
         orderService.completeOrderAndExecutePayment(orderId);
     }
+
+    @DeleteMapping
+    public void deleteOrder(@RequestParam Long orderId) {
+        orderService.deleteOrder(orderId);
+    }
 }

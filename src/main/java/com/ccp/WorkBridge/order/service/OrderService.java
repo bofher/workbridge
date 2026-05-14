@@ -56,6 +56,12 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
+
+    public Order deleteOrder(Long orderId) {
+        return orderRepository.findById(orderId)
+                .orElseThrow(() -> new DataNotFoundException("Order not found"));
+    }
+
     @Transactional
     public void markOrderAsReady(Long orderId) {
         Order order = orderRepository.findById(orderId)
