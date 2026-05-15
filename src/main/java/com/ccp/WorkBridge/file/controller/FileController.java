@@ -3,6 +3,7 @@ package com.ccp.WorkBridge.file.controller;
 import com.ccp.WorkBridge.dto.CustomUserDetails;
 import com.ccp.WorkBridge.dto.GenerateUploadUrlRequest;
 import com.ccp.WorkBridge.dto.PresignedUploadResponse;
+import com.ccp.WorkBridge.enums.FileType;
 import com.ccp.WorkBridge.file.FileEntity;
 import com.ccp.WorkBridge.file.service.FileService;
 import com.ccp.WorkBridge.file.service.FileStorageService;
@@ -48,7 +49,8 @@ public class FileController {
         return fileService.generateUploadUrl(
                 request.fileName(),
                 request.contentType(),
-                userDetails.user()
+                userDetails.user(),
+                FileType.ATTACHMENT
         );
     }
 

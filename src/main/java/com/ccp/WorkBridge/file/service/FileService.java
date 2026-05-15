@@ -35,7 +35,7 @@ public class FileService {
         return fileRepository.save(entity);
     }
 
-    public PresignedUploadResponse generateUploadUrl(String originalName, String contentType, User user) {
+    public PresignedUploadResponse generateUploadUrl(String originalName, String contentType, User user, FileType fileType) {
         PresignedUploadResponse presigned = storageService.generateUploadUrl(originalName, contentType);
 
         FileEntity file = FileEntity.builder()
