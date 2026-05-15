@@ -1,10 +1,13 @@
 package com.ccp.WorkBridge.order.service;
 
-import com.ccp.WorkBridge.dto.CreateOrderRequest;
+import com.ccp.WorkBridge.order.dto.OrderResponse;
+import com.ccp.WorkBridge.order.OrderSpecification;
+import com.ccp.WorkBridge.order.dto.CreateOrderRequest;
 import com.ccp.WorkBridge.enums.OrderStatus;
 import com.ccp.WorkBridge.enums.OrderType;
 import com.ccp.WorkBridge.order.Order;
 import com.ccp.WorkBridge.order.OrderSkill;
+import com.ccp.WorkBridge.order.dto.OrderSearchCriteria;
 import com.ccp.WorkBridge.payment.service.OrderPaymentService;
 import com.ccp.WorkBridge.shared.exceptions.DataNotFoundException;
 import com.ccp.WorkBridge.order.repo.OrderRepository;
@@ -14,6 +17,8 @@ import com.ccp.WorkBridge.user.User;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -30,6 +35,7 @@ public class OrderService {
 
     public Order createOrder(CreateOrderRequest request, User currentUser) {
         Order order = new Order();
+        order.setTitle(request.title());
         order.setCustomer(currentUser);
         order.setFreelancer(null);
         order.setStatus(OrderStatus.CREATED);
@@ -97,5 +103,14 @@ public class OrderService {
         orderRepository.save(order);
 
         log.info("Order {} completed and payment transferred to freelancer", orderId);
+    }
+
+    public Page<OrderResponse> search(OrderSearchCriteria criteria, Pageable pageable) {
+
+        return orderRepository.findAll(
+                        OrderSpecification.byCriteria(criteria),
+                        pageable
+                )
+                .map(OrderResponse::toResponse);
     }
 }

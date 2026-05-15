@@ -23,6 +23,8 @@ import java.util.Set;
 @Setter
 @Table(name = "orders")
 public class Order extends BaseEntity {
+    private String title;
+
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private User customer;
