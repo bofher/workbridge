@@ -52,19 +52,14 @@ public class FileService {
     }
 
     public FileEntity confirmUpload(String key) {
-
         FileEntity file = fileRepository.findByStorageKey(key).orElseThrow(
                 () -> new DataNotFoundException("File not found"));
         long size = storageService.validateFileExists(key);
-
-        //TODO filesize limit by subscription with a help of user details
 
         file.setConfirmed(true);
         file.setSizeBytes(size);
         file.setUploadedAt(Instant.now());
         return fileRepository.save(file);
-
-
     }
 
 }

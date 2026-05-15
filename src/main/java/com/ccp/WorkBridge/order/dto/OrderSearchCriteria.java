@@ -9,10 +9,15 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
 
+import com.ccp.WorkBridge.order.Order;
+
 @Getter
 @Setter
 public class OrderSearchCriteria {
 
+    /**
+     * Field to search by description and title field in {@link Order}
+     */
     private String query;
 
     private OrderStatus status;
